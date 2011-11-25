@@ -1,0 +1,15 @@
+@(stories: Seq[Story])
+
+@main("Nowtify") {
+    @stories.map { story =>
+        <section class="story" id="story-@story.rank">
+            <header></header>
+            <section class="content">
+                <div class="rank">#@story.rank</div>
+                <div class="description">
+                    @story.name
+                </div>
+            </section>
+        </section>
+    }
+}
