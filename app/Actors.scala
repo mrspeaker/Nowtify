@@ -16,7 +16,7 @@ class HNActor(parser: ActorRef) extends Actor {
                 parser ! response.getResponseBody()
             })
         }
-        case "lol" => play.Logger.info("oh my!")
+        case "Ping" => play.Logger.info("Parse Ping received")
     }
 }
 
@@ -24,7 +24,7 @@ class HNParser extends Actor {
     def receive = {
         case m: String => {
             play.Logger.info(HNParser.parseItUp(m).toString())
-            self reply "lol"
+            self reply "Ping"
         }
     }
 }
@@ -74,12 +74,11 @@ object HNParser {
 }
 
 object Scraper {
-    play.Logger.warn("go go gadgets")
+    play.Logger.warn("Starting Fetching and Parsing actors")
     val parser = actorOf[HNParser].start()
     val hner = actorOf(new HNActor(parser)).start()
-    //val future = hner ! "Fetch"
     
-    Scheduler.schedule(hner, "Fetch", 1, 20, TimeUnit.SECONDS)
+    Scheduler.schedule(hner, "Fetch", 1, 60, TimeUnit.SECONDS)
     
     def startItAll = "I'm alive!"
     def endItAll = {

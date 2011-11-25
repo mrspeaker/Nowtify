@@ -13,7 +13,6 @@ object Global extends GlobalSettings {
 
 
   override def onStop(app: Application) {
-      //import console.Actors._
       console.Actors.Scraper.endItAll
     }
 }
