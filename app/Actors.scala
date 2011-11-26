@@ -11,7 +11,7 @@ import scala.util.parsing.combinator._
 class HNActor(parser: ActorRef) extends Actor {
     def receive = {
         case "Fetch" => {
-            play.api.WS.url("http://news.ycombinator.com/").get().map(response => {
+            play.api.WS.url("http://news.ycombinator.com/best").get().map(response => {
                 play.Logger.info(response.getStatusCode().toString())
                 parser ! response.getResponseBody()
             })
